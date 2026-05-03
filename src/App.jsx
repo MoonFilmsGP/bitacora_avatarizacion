@@ -14,7 +14,7 @@ import documents from './data/documents.json';
 import './index.css';
 import './App.css';
 
-const EXTRA_FILES = ['FLUSSER.docx', 'MANO.avif', 'IMAGEN.jpg', 'TEXTO.jpeg', 'VACIO.webp', 'cassette.png', 'cassette2.png', 'cassette3.png', 'reproductor.png'];
+const EXTRA_FILES = ['FLUSSER.docx', 'MANO.avif', 'IMAGEN.jpg', 'TEXTO.jpeg', 'VACIO.webp', 'cassette.png', 'cassette2.png', 'cassette3.png', 'reproductor.png', 'llave.png'];
 const allKeys = [...Object.keys(documents), ...EXTRA_FILES];
 
 const initialPositions = allKeys.reduce((acc, key) => {
@@ -135,6 +135,10 @@ function CorkboardView({ corkboardItems, onRemovePin, onUpdatePin, activeTool, f
       setPhase4SuccessFlashed(true);
       setGlowP4(true);
       // It glows indefinitely to indicate success.
+      setDeskDocuments(prev => {
+        if (!prev.includes('llave.png')) return [...prev, 'llave.png'];
+        return prev;
+      });
     }
   }, [phase4ExactLinks, phase4SuccessFlashed]);
 
@@ -628,6 +632,15 @@ function App() {
     }
   };
 
+  const handleUnlockDrawer = (drawerId) => {
+    setDrawerData(prev => prev.map(d => {
+      if (d.id === drawerId) {
+        return { ...d, isLocked: false, name: 'SINALOA 2026' }; // Example name for 3rd drawer
+      }
+      return d;
+    }));
+  };
+
   const handlePinToCorkboard = (key, x, y) => {
     setDeskDocuments(prev => prev.filter(d => d !== key));
     setCorkboardItems(prev => [...prev, { id: key, x: x - 60, y: y - 60, rotation: (Math.random() - 0.5) * 15 }]);
@@ -766,6 +779,7 @@ function App() {
                   onHoverCabinet={(title) => setHoveredDossier(title)}
                   onStore={() => toggleDocument(key)}
                   drawerData={drawerData}
+                  onUnlockDrawer={handleUnlockDrawer}
                 />
               );
             }

@@ -15,7 +15,8 @@ export default function ImageDocument({
   activeDrawer,
   onHoverCabinet,
   onStore,
-  drawerData
+  drawerData,
+  onUnlockDrawer
 }) {
   const containerRef = useRef(null);
   const x = useMotionValue(initialPos?.x || 0);
@@ -56,6 +57,16 @@ export default function ImageDocument({
 
     if (isCabinetOpen && info.point.x > window.innerWidth - 400) {
       onHoverCabinet(null);
+      if (filename === 'llave.png') {
+        const targetDrawer = drawerData.find(d => d.id === 3);
+        if (targetDrawer && targetDrawer.isLocked) {
+          if (onUnlockDrawer) onUnlockDrawer(3);
+          setTimeout(() => onStore(), 50); // consume the key
+          TelemetryEngine.log('Drawer_Unlocked_With_Key', { drawerId: 3 });
+          return;
+        }
+      }
+
       const correctDrawer = drawerData.find(d => d.docs.includes(filename));
       if (correctDrawer && correctDrawer.id === activeDrawer) {
         setTimeout(() => onStore(), 50);
@@ -76,10 +87,11 @@ export default function ImageDocument({
         x,
         y,
         cursor: 'grab',
-        filter: 'drop-shadow(2px 4px 10px rgba(0,0,0,0.5))',
-        background: 'white',
-        padding: '10px',
-        paddingBottom: '30px'
+        filter: filename === 'llave.png' ? 'drop-shadow(2px 4px 6px rgba(0,0,0,0.5))' : 'drop-shadow(2px 4px 10px rgba(0,0,0,0.5))',
+        background: filename === 'llave.png' ? 'transparent' : 'white',
+        padding: filename === 'llave.png' ? '0' : '10px',
+        paddingBottom: filename === 'llave.png' ? '0' : '30px',
+        mixBlendMode: filename === 'llave.png' ? 'multiply' : 'normal'
       }}
       drag
       dragConstraints={{ left: -600, right: 600, top: -500, bottom: 500 }}
