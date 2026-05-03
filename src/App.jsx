@@ -13,6 +13,7 @@ import { conceptMapping } from './components/RedactedDossier';
 import documents from './data/documents.json';
 import './index.css';
 import './App.css';
+import { ASSETS } from './assets.js';
 
 const EXTRA_FILES = ['FLUSSER.docx', 'MANO.avif', 'IMAGEN.jpg', 'TEXTO.jpeg', 'VACIO.webp', 'cassette.png', 'cassette2.png', 'cassette3.png', 'reproductor.png', 'llave.png'];
 const allKeys = [...Object.keys(documents), ...EXTRA_FILES];
@@ -356,7 +357,7 @@ function CorkboardView({ corkboardItems, onRemovePin, onUpdatePin, activeTool, f
               {item.id.match(/\.(jpg|jpeg|png|avif|webp)$/i) ? (
                 <div style={{ position: 'relative' }}>
                   <img 
-                    src={`${import.meta.env.BASE_URL}assets/${item.id}`} 
+                    src={ASSETS[item.id]} 
                     alt={item.id} 
                     draggable={false}
                     style={{ 

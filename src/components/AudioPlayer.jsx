@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useMotionValue } from 'framer-motion';
+import { ASSETS } from '../assets.js';
 
 export default function AudioPlayer({
   initialPos,
@@ -26,7 +27,7 @@ export default function AudioPlayer({
       transition={{ type: 'spring', bounce: 0.2, duration: 0.8 }}
     >
       <div style={{ position: 'relative' }}>
-        <img src={`${import.meta.env.BASE_URL}assets/reproductor.png`} alt="Reproductor de audio" draggable={false} style={{ width: '400px', display: 'block', pointerEvents: 'none' }} />
+        <img src={ASSETS['reproductor.png']} alt="Reproductor de audio" draggable={false} style={{ width: '400px', display: 'block', pointerEvents: 'none' }} />
         
         {/* Play Button */}
         <button 
