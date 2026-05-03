@@ -94,7 +94,7 @@ export default function AudioCassette({
       transition={{ type: 'spring', bounce: 0.2, duration: 0.5 }}
     >
       <div style={{ position: 'relative' }}>
-        <img src={`/src/assets/${filename}`} alt={filename} draggable={false} style={{ width: '150px', display: 'block', pointerEvents: 'none' }} />
+        <img src={`${import.meta.env.BASE_URL}assets/${filename}`} alt={filename} draggable={false} style={{ width: '150px', display: 'block', pointerEvents: 'none' }} />
         <div style={{
           position: 'absolute',
           top: '36%',

@@ -107,7 +107,7 @@ export default function ImageDocument({
       animate={{ y: initialPos?.y || 0, opacity: 1 }}
       transition={{ type: 'spring', bounce: 0.2, duration: 0.8 }}
     >
-      <img src={`/src/assets/${filename}`} alt={filename} draggable={false} style={{ maxWidth: '300px', maxHeight: '400px', display: 'block', pointerEvents: 'none' }} />
+      <img src={`${import.meta.env.BASE_URL}assets/${filename}`} alt={filename} draggable={false} style={{ maxWidth: '300px', maxHeight: '400px', display: 'block', pointerEvents: 'none' }} />
     </motion.div>
   );
 }

@@ -134,11 +134,8 @@ function CorkboardView({ corkboardItems, onRemovePin, onUpdatePin, activeTool, f
     if (phase4ExactLinks && !phase4SuccessFlashed) {
       setPhase4SuccessFlashed(true);
       setGlowP4(true);
+      window.dispatchEvent(new CustomEvent('phase4-success'));
       // It glows indefinitely to indicate success.
-      setDeskDocuments(prev => {
-        if (!prev.includes('llave.png')) return [...prev, 'llave.png'];
-        return prev;
-      });
     }
   }, [phase4ExactLinks, phase4SuccessFlashed]);
 
@@ -359,7 +356,7 @@ function CorkboardView({ corkboardItems, onRemovePin, onUpdatePin, activeTool, f
               {item.id.match(/\.(jpg|jpeg|png|avif|webp)$/i) ? (
                 <div style={{ position: 'relative' }}>
                   <img 
-                    src={`/src/assets/${item.id}`} 
+                    src={`${import.meta.env.BASE_URL}assets/${item.id}`} 
                     alt={item.id} 
                     draggable={false}
                     style={{ 
@@ -582,6 +579,18 @@ function App() {
     };
     window.addEventListener('phase3-success', handlePhase3Success);
     return () => window.removeEventListener('phase3-success', handlePhase3Success);
+  }, []);
+
+  // ─── PHASE 4 SUCCESS LISTENER ───
+  useEffect(() => {
+    const handlePhase4Success = () => {
+      setDeskDocuments(prev => {
+        if (!prev.includes('llave.png')) return [...prev, 'llave.png'];
+        return prev;
+      });
+    };
+    window.addEventListener('phase4-success', handlePhase4Success);
+    return () => window.removeEventListener('phase4-success', handlePhase4Success);
   }, []);
 
   useEffect(() => {
