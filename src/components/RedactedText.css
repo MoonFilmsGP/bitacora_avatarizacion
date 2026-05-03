@@ -1,0 +1,86 @@
+.redacted-bar {
+  background-color: #111;
+  color: transparent;
+  padding: 0 4px;
+  border-radius: 2px;
+  user-select: none;
+  transition: all 0.2s ease;
+  display: inline-block;
+  line-height: 1.2;
+  position: relative;
+}
+
+.redacted-bar.tool-lens {
+  cursor: crosshair;
+}
+
+.redacted-bar.tool-hand {
+  cursor: inherit;
+}
+
+.redacted-bar.tool-lens:hover {
+  box-shadow: 0 0 8px 2px rgba(0, 255, 0, 0.4);
+  background-color: #1a1111;
+}
+
+@keyframes decipher-glow {
+  0% { box-shadow: 0 0 5px rgba(0, 255, 0, 0.5); background-color: #121; }
+  50% { box-shadow: 0 0 15px rgba(50, 255, 50, 0.8); background-color: #151; }
+  100% { box-shadow: 0 0 5px rgba(0, 255, 0, 0.5); background-color: #121; }
+}
+
+.redacted-bar.deciphering {
+  animation: decipher-glow 0.15s infinite;
+}
+
+@keyframes error-shake {
+  0% { transform: translateX(0); box-shadow: 0 0 8px 2px rgba(255, 0, 0, 0.8); background-color: #511; }
+  25% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+  75% { transform: translateX(-4px); }
+  100% { transform: translateX(0); box-shadow: none; background-color: #111; }
+}
+
+.redacted-bar.error {
+  animation: error-shake 0.4s ease-out;
+  box-shadow: 0 0 8px 2px rgba(255, 0, 0, 0.8);
+  background-color: #511;
+}
+
+.revealed-text {
+  background-color: transparent;
+  color: #222;
+  padding: 0 4px;
+  font-weight: bold;
+  animation: fade-in 0.5s ease-out;
+  border-bottom: 1px dashed #666;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; background-color: #111; color: transparent; }
+  to { opacity: 1; background-color: transparent; color: #222; }
+}
+
+.magnified-red-text {
+  color: #c00;
+  cursor: pointer;
+  text-shadow: 0 0 5px rgba(200, 0, 0, 0.5);
+  transition: all 0.3s ease;
+  border-bottom: 2px dotted transparent;
+  padding: 0 4px;
+  display: inline-block;
+  line-height: 1.2;
+}
+
+.magnified-red-text:hover {
+  text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+  border-bottom: 2px dotted #c00;
+}
+
+.magnified-red-text.flagged {
+  color: #fff;
+  background-color: #c00;
+  padding: 0 4px;
+  text-shadow: none;
+  border-bottom: none;
+}
